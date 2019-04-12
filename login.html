@@ -1,9 +1,23 @@
 <!--Form tag usage sameple code-->
 <html>
+    <head>
+        <style>
+            .userName{
+                color:green;
+                text-align:center;
+            }
+            .password{
+                color:blue;
+                text-align:center;
+            }
+        </style>
+
+    </head>  
+
     <body>
     <form action="signup.html" id="signUp">
-    <input type="text" placeholder="user name"/>
-    <input type="password" placeholder="password"/>
+    <input class="userName" type="text" placeholder="user name"/>
+    <input class="password" type="password" placeholder="password"/>
     <button id="login">Login</button>
     <button id="signUp">sign up</button>
 </form>
