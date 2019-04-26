@@ -1,0 +1,30 @@
+
+<html>
+        <head>
+                <script type="text/javascript">
+    
+                    function reverseString(){
+                        event.preventDefault();
+                        var userRev='';
+                        var user=document.getElementById("userName").value;
+                    for(var i=user.length-1;i>=0;i--){
+                        userRev=userRev.concat(user[i]);
+                    }
+                   
+                    document.getElementById("htext").innerHTML=userRev;
+                    }
+                    
+                    
+            </script>
+
+        </head>
+       
+        <body>
+        <form  method="GET" accept-charset="utf-8">
+            <input type="text" id="userName"/>
+            <button  onclick="reverseString()">reverse</button>
+            <span id="htext"></span>
+        </form>
+        
+        </body>
+    </html>
