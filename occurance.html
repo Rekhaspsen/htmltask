@@ -1,0 +1,37 @@
+<html>
+        <head>
+                <script type="text/javascript">
+    
+                    function countString(){
+                        event.preventDefault();
+                        var countedValue={};
+                        var text=document.getElementById("text").value;
+                    for(var i=0;i<text.length;i++){
+                        var count=0;
+                        for(var j=0;j<text.length;j++){
+                        if(text[i]==text[j]){
+                            
+                            count++;
+                        }
+                    }
+                    countedValue[text[i]]=count;
+                    document.getElementById("htext").innerHTML=JSON.stringify(countedValue);
+                    }
+                   
+                    }
+                    
+                    
+            </script>
+
+        </head>
+       
+        <body>
+        <form  method="GET" accept-charset="utf-8">
+            <input type="text" id="text"/>
+            <button  onclick="countString()">count</button>
+            <span id="htext"></span>
+            <span id="counttext"></span>
+        </form>
+        
+        </body>
+    </html>

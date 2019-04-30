@@ -1,0 +1,96 @@
+<html>
+
+<head>
+
+</head>
+<body>
+
+ <h1>Register here!!</h1>
+ <form>
+  <label>Username</label> <input type="text" id="username">
+  <label>Password</label><input type="password" id="password">
+  <label>EmailId</label><input type="text" id="emailid">
+  <label>MobileNumber</label><input type="text" id="mobileNumber">
+  <button onclick="register()">RegisterMe!</button>
+ </form>
+ <br>
+ <br>
+ <br>
+  <hr>
+  <br>
+  <br>
+  <br>
+
+  <h1>Login here!!</h1>
+ <form>
+     <label>EmailId</label><input type="text" id="login_emailid">
+     <label>Password</label><input type="password" id="login_password">
+   <button onclick="login()">Login!</button>
+ </form>
+
+
+
+ <script>
+
+     function login(){
+          event.preventDefault();
+       var emailid=document.getElementById('login_emailid').value;
+       var password= document.getElementById('login_password').value;
+       if(emailid){
+            var userInfo=localStorage.getItem(emailid);
+            var userInfo2=JSON.parse(userInfo);
+            var passwordInLS=userInfo2.password;
+            if(password === passwordInLS){
+              alert("user logged in!!");
+            }
+            else
+            {
+              alert("username/password incorrect");
+            }
+       }
+
+     }
+    
+
+    function register(){
+      event.preventDefault();
+
+
+         var username=document.getElementById('username').value;
+        var password= document.getElementById('password').value;
+         var emailid=document.getElementById('emailid').value;
+         var mobileNumber=document.getElementById('mobileNumber').value;
+         validate(username,password,emailid,mobileNumber);
+         var emailCheck=localStorage.getItem(emailid);
+         if(emailCheck){
+             alert("you are already registered!!");
+             return;
+         }
+
+         var userDetails= {
+            username:username,
+            password:password,
+            emailid:emailid,
+            mobileNumber:mobileNumber
+         }
+         localStorage.setItem(emailid,JSON.stringify(userDetails));
+       
+    }
+    function validate(username,password,emailid,mobileNumber){
+      if(username==""||password==""||emailid==""||mobileNumber==""){
+          alert("All fields are mandatory");
+          return false;
+      }
+      if (emailid.indexOf("@", 0) < 0 || emailid.indexOf(".", 0) < 0 )                 
+    { 
+        alert("Please enter a valid e-mail address."); 
+        return false;
+    }
+   return true;
+    }
+
+ </script>
+
+</body>
+
+</html>
