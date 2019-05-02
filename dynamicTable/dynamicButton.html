@@ -1,0 +1,130 @@
+<form>
+
+    Product Id <input type="text" id="productId" placeholder="product id"> <br><br>
+ 
+    Product Name <input type="text" id="productName" placeholder="product name"> <br><br>
+ 
+    Product Description: <textarea id="desc" placeholder="Enter product description"></textarea> <br><br>
+ 
+    Product Category: <select id="category">
+        <option value="MW">Men's Wear</option>
+        <option value="WW">Women's Wear</option>
+    </select> <br><br>
+    
+    Product price: <input type="text" id="price">
+ 
+    <button onclick="addProduct()">Add Product</button>
+ 
+    <button onclick="showProducts()">Show Products</button>
+    <br>
+    <br>
+ <hr>
+    <table id="showTable" height="30%" width="80%">
+ 
+    </table>
+ </form>
+ 
+ <script>
+ 
+  function addProduct(){
+      event.preventDefault();
+ 
+      var productId=document.getElementById('productId').value;
+      var productName=document.getElementById('productName').value;
+      var desc=document.getElementById('desc').value;
+      var category=document.getElementById('category').value;
+      var price=document.getElementById('price').value;
+ 
+      var product={
+         productId:productId,
+         productName:productName,
+         desc:desc,
+         category:category,
+         price:price
+           }
+ 
+          var productAvailability=localStorage.getItem(productId);
+          if(productAvailability){
+              alert("this product is already available");
+              return;
+          }
+          else
+          {
+              localStorage.setItem(productId,JSON.stringify(product));
+              alert("product added!!");
+          }
+  }
+ 
+  function showProducts(){
+      event.preventDefault();
+ 
+      var products=[];
+ 
+      console.log(localStorage.length);
+ 
+      for(var x=0;x<localStorage.length;x++){
+          //products.push(localStorage.getItem(localStorage.key(x)));
+        products.push(localStorage.getItem(localStorage.key(x)));
+      }
+      var allProducts=[];
+      
+       for(var y=0;y<products.length;y++){
+           allProducts.push(JSON.parse(products[y]));
+       }
+ 
+       console.log(allProducts);
+ 
+      //POC- Proof Of Concept
+ 
+     var table=document.getElementById('showTable');
+ 
+    table.border=2;
+  
+     for(var z=0;z<allProducts.length;z++){
+ 
+   var row=table.insertRow(z);
+   var productId = row.insertCell(0);
+   var productName = row.insertCell(1);
+   var desc = row.insertCell(2);
+   var category = row.insertCell(3);
+   var price = row.insertCell(4);
+   var removeButton= row.insertCell(5);
+   var editButton= row.insertCell(6);
+   productId.innerHTML=allProducts[z].productId;
+   productName.innerHTML=allProducts[z].productName;
+   desc.innerHTML=allProducts[z].desc;
+   category.innerHTML=allProducts[z].category;
+   price.innerHTML=allProducts[z].price;
+   //delete button
+   var button=document.createElement('input');
+   button.setAttribute('type','button');
+   button.setAttribute('value','remove');
+   button.setAttribute('onclick',"removeElement('" + allProducts[z].productId + "',this);");
+   removeButton.appendChild(button);
+    //edit button
+    var button=document.createElement('input');
+   button.setAttribute('type','button');
+   button.setAttribute('value','edit');
+   editButton.appendChild(button);
+   button.setAttribute('onclick',"editElement('" + allProducts[z].productId + "');");
+   
+     }
+
+ 
+  }
+  function removeElement(productId,oButton){
+    
+       localStorage.removeItem(productId);
+    var prodTab = document.getElementById('showTable');  
+    prodTab.deleteRow(oButton.parentNode.parentNode.rowIndex);
+  }
+  function editElement(productId){
+ var prodDetails=JSON.parse(localStorage.getItem(productId));
+ document.getElementById('productId').value = prodDetails.productId;
+ document.getElementById('productName').value = prodDetails.productName;
+ document.getElementById('desc').value = prodDetails.desc;
+ document.getElementById('category').value = prodDetails.category;
+ document.getElementById('category').value = prodDetails.price;
+}
+ 
+ </script>
